@@ -24,7 +24,7 @@
 <meta name="author" content="陆泽凯 谢颖" />
 
 
-<meta name="date" content="2020-09-24" />
+<meta name="date" content="2020-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,7 +135,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
 <li class="part"><span><b>I 初级部分</b></span></li>
-<li class="chapter" data-level="1" data-path="入门.html"><a href="入门.html"><i class="fa fa-check"></i><b>1</b> 入门，认识R语言的强大功能</a></li>
+<li class="chapter" data-level="1" data-path="入门.html"><a href="入门.html"><i class="fa fa-check"></i><b>1</b> 入门，认识R语言的强大功能</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="入门.html"><a href="入门.html#r语言的基础编程功能"><i class="fa fa-check"></i><b>1.1</b> R语言的基础编程功能</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="导入社科数据.html"><a href="导入社科数据.html"><i class="fa fa-check"></i><b>2</b> 导入社科数据</a></li>
 <li class="chapter" data-level="3" data-path="数据清洗入门.html"><a href="数据清洗入门.html"><i class="fa fa-check"></i><b>3</b> 数据清洗入门</a></li>
 <li class="chapter" data-level="4" data-path="初识ggplot绘图.html"><a href="初识ggplot绘图.html"><i class="fa fa-check"></i><b>4</b> 初识ggplot绘图</a>
@@ -178,186 +181,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="入门" class="section level1" number="1">
 <h1><span class="header-section-number">章节 1</span> 入门，认识R语言的强大功能</h1>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="#intro"><strong>??</strong></a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="#methods"><strong>??</strong></a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="入门.html#cb2-1" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
-<span id="cb2-2"><a href="入门.html#cb2-2" aria-hidden="true"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="R-in-social-model_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 1.1: Here is a nice figure!
-</p>
-</div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="入门.html#fig:nice-fig">1.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="入门.html#tab:nice-tab">1.1</a>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="入门.html#cb3-1" aria-hidden="true"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
-<span id="cb3-2"><a href="入门.html#cb3-2" aria-hidden="true"></a>  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb3-3"><a href="入门.html#cb3-3" aria-hidden="true"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
-<span id="cb3-4"><a href="入门.html#cb3-4" aria-hidden="true"></a>)</span></code></pre></div>
-<table>
-<caption><span id="tab:nice-tab">Table 1.1: </span>Here is a nice table!</caption>
-<thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-</tbody>
-</table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
+<p>
+  R语言能做什么，你也许从你的同学，你的老师中早就听说过<code>R</code>语言的鼎鼎大名，看见别人用<code>R</code>语言轻松的做出漂亮好看的图表，而你自己却只能利用Excel慢慢拖这拖那来慢慢做图。或者说，当你为一个计量经济学的回归模型，挠头苦想时，千方百计才了解到可以用R语言做出这个模型，你却因为<code>R</code>语言是一门编程语言而望而却步。
+<p>
+<p>
+  其实R语言远没有你想象的那么困难，R语言是一门由统计学家创造的语言。它的很多特性与传统的编程语言并不相同，比如它拥有许多内置的统计函数，拥有一个数据框结构。还有它的数据切片是由1开始，而不是像传统的编程语言以0作为切片的开始。上面这些特征都是其他编程语言不具备的。这些特征使得<code>R</code>语言不仅更易上手，也更好满足我们做定量研究的需要。
+<p>
+<p>
+  但另一方面R语言始终都是一门编程语言，它是一门兼顾了面向对象编程和函数式编程的语言。拥有许多标准的程序结构，这些都是传统的R语言中我们必须学习的。而这些对于没有编程背景的社科研究者来说无疑加大了难度
+<p>
+<p>
+<p>  <em>Hadley Wickham</em>开发的一系列用于数据清洗和数据可视化的包<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>打破了这一困局，在这一系列被称为<code>Tidy</code><span class="citation">(Wickham et al. <a href="#ref-dplyr2020" role="doc-biblioref">2020</a>)</span>的包中我们可以用更加人性化的语言来清洗数据。<em>Hadley Wickham</em>将我们日常生活中的各种动词比如<code>select</code>,<code>filter</code>还有<code>rename</code>作为指令来操作数据，使得这些命令更容易理解，也更加好记。比如我们要选择某个数据表中的1到5列的变量的前5行。用传统的<code>R</code>语言我们应该这样写：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="入门.html#cb2-1" aria-hidden="true"></a><span class="kw">head</span>(iris[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>而在<code>tidy</code>的风格中我们可以这样写</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="入门.html#cb4-1" aria-hidden="true"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()<span class="co">#或者也可以写成iris %&gt;% select(1:5) %&gt;% head()</span></span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>
+  显然<code>tidy</code>风格的会更好理解一些——在<code>iris</code>数据中我们<code>select</code>(选择)了1，2，3，4，5行然后打印它的<code>head</code>(顶部)。这样的例子还有很多。对于比较简单的指令传统的<code>R</code>语言可能还比较好理解，但如果我们数据清洗的要求多了起来。那么命令就会很是复杂，没有<code>tidy</code>风格那么直观。我会将一份示例放在附录，读者朋友们可以对比参考。
+<p>
+<div id="r语言的基础编程功能" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> R语言的基础编程功能</h2>
 
+</div>
 </div>
 <h3>引用</h3>
 <div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
+<div id="ref-dplyr2020">
+<p>Wickham, Hadley, Romain Fran?ois, Lionel Henry, and Kirill Müller. 2020. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>包指的是R语言中一些被编写好“包装”在一起的命令。我们可以自己不写命令而直接调用别人写好的命令。<a href="入门.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
