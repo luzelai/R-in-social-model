@@ -24,7 +24,7 @@
 <meta name="author" content="陆泽凯 谢颖" />
 
 
-<meta name="date" content="2020-10-13" />
+<meta name="date" content="2020-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -141,7 +141,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2" data-path="入门.html"><a href="入门.html#r语言下载安装"><i class="fa fa-check"></i><b>1.2</b> R语言下载安装</a></li>
 <li class="chapter" data-level="1.3" data-path="入门.html"><a href="入门.html#r语言环境设置和包的安装"><i class="fa fa-check"></i><b>1.3</b> R语言环境设置和包的安装</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="导入社科数据.html"><a href="导入社科数据.html"><i class="fa fa-check"></i><b>2</b> 导入社科数据</a></li>
+<li class="chapter" data-level="2" data-path="导入社科数据.html"><a href="导入社科数据.html"><i class="fa fa-check"></i><b>2</b> 导入社科数据</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="导入社科数据.html"><a href="导入社科数据.html#r语言管道输入法"><i class="fa fa-check"></i><b>2.1</b> R语言管道输入法</a></li>
+<li class="chapter" data-level="2.2" data-path="导入社科数据.html"><a href="导入社科数据.html#运算符介绍"><i class="fa fa-check"></i><b>2.2</b> 运算符介绍</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="数据清洗入门.html"><a href="数据清洗入门.html"><i class="fa fa-check"></i><b>3</b> 数据清洗入门</a></li>
 <li class="chapter" data-level="4" data-path="初识ggplot绘图.html"><a href="初识ggplot绘图.html"><i class="fa fa-check"></i><b>4</b> 初识ggplot绘图</a>
 <ul>
@@ -189,7 +193,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 2.1: hadoop标志
 </p>
 </div>
+<div id="r语言管道输入法" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> R语言管道输入法</h2>
+<p>  在本书中，我不会重点阐述R语言的一些编程范式和编程技巧，只会有需要时才会向大家讲解。不过R语言中有一些编程的方法是不得不讲清楚的。
+  第一是，R语言tidy语法中的管道输入法。tidy语法引入了<code>UNIX</code>系统上的管道，可以写出更加清晰的代码。管道就是将上一行代码块的内容作为参数传入到下一行代码块中。在R语言中管道用<code>%&gt;%</code>表示，比如说我们要查看<code>iris</code>数据前20行各个叶片的平均值，并同时要求按不同种类输出。传统的R语法你可以这样写</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="导入社科数据.html#cb9-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="导入社科数据.html#cb9-2" aria-hidden="true"></a><span class="kw">summarise_if</span>(<span class="kw">group_by</span>(<span class="kw">head</span>(iris,<span class="dv">20</span>),Species),is_numeric,mean)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##   Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+##   &lt;fct&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1 setosa          5.04        3.48         1.44       0.235</code></pre>
+<p>是不是特别复杂，看得云里雾里，通过管道语法可以很好的解决这个问题，用了管道<code>%&gt;%</code>后你可以这样写</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="导入社科数据.html#cb11-1" aria-hidden="true"></a><span class="co">#library(tidyverse)</span></span>
+<span id="cb11-2"><a href="导入社科数据.html#cb11-2" aria-hidden="true"></a>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_if</span>(is.numeric,mean)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 5
+##   Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+##   &lt;fct&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1 setosa          5.04        3.48         1.44       0.235</code></pre>
+<p>我们可以用自然语言法的办法来理解<code>%&gt;%</code>比如上面的代码几乎可以读成<strong><em>iris先（%&gt;%）展示它的前20行（head(20)），然后（%&gt;%）再按Species分类（group_by(Species)），最后（%&gt;%）聚合（summarise_if）如果是数字（is.numeric）则计算平均数（mean）</em></strong></p>
+<p>记住管道的作用就是把上个代码计算的结果作为<strong>第一个参数</strong>带到第二块代码中。在tidy语法中利用管道是一件非常常见的事情。</p>
+</div>
+<div id="运算符介绍" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> 运算符介绍</h2>
+<p>  R语言中的运算符。R语言中运算符基本分为算术运算符，逻辑判断运算符，赋值运算符。下面简单介绍一下，</p>
+<p>算术运算符就是进行加减乘除以及各种高级元素的符号，下表是R语言中常用的算术运算符表格。需要注意得是R语言在做算术元素时，是以逐元素为基础得。这并不符合矩阵运算得特征。R语言中如果要做矩阵的乘法要用<code>%*%</code>来计算。如果是按原始的<code>*</code>来计算得到的是个个相对应元素相乘的积。</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="32%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+</td>
+<td>两个向量相加</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v+t)</code>它产生以下结果：<code>[1] 10.0  8.5  10.0</code></td>
+</tr>
+<tr class="even">
+<td>−</td>
+<td>从第一个向量减去第二个向量</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v-t)</code>它产生以下结果：<code>[1] -6.0  2.5  2.0</code></td>
+</tr>
+<tr class="odd">
+<td>*</td>
+<td>两个矢量相乘</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v*t)</code>它产生以下结果：<code>[1] 16.0 16.5 24.0</code></td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>将第一个向量与第二向量相除</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v/t)</code>它产生以下结果：<code>[1] 0.250000 1.833333 1.500000</code></td>
+</tr>
+<tr class="odd">
+<td>%%</td>
+<td>得到第一矢量与第二个矢量余数</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v%%t)</code>它产生以下结果：<code>[1] 2.0 2.5 2.0</code></td>
+</tr>
+<tr class="even">
+<td>^</td>
+<td>第一向量提升到第二向量的指数</td>
+<td><code>v &lt;- c( 2,5.5,6) t &lt;- c(8, 3, 4) print(v^t)</code>它产生以下结果：<code>[1]  256.000  166.375 1296.000</code></td>
+</tr>
+</tbody>
+</table>
+<p>关系运算符涉及的是R语言中的逻辑判断。它运算的结果会返回一个布尔值<code>TRUE</code>或者<code>FALSE</code>。下面的表格列出了常用的一些逻辑判断运算符。</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="32%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;</td>
+<td>检查是否第一向量的每个元素大于第二向量的相应元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v&gt;t)</code>它产生以下结果： <code>[1] FALSE  TRUE FALSE FALSE</code></td>
+</tr>
+<tr class="even">
+<td>&lt;</td>
+<td>检查是否第一向量的每个元素小于第二向量的相应元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v &lt; t)</code>它产生以下结果：<code>[1]  TRUE FALSE  TRUE FALSE</code></td>
+</tr>
+<tr class="odd">
+<td>==</td>
+<td>检查是否第一向量的每个元素等于第二向量的相应元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v==t)</code>它产生以下结果：<code>[1] FALSE FALSE FALSE  TRUE</code></td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>检查是否第一向量的每个元素是小于或等于第二向量的相应的元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v&lt;=t)</code>它产生以下结果：<code>[1]  TRUE FALSE  TRUE  TRUE</code></td>
+</tr>
+<tr class="odd">
+<td>&gt;=</td>
+<td>检查是否第一向量的每个元素是大于或等于第二向量的相应元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v&gt;=t)</code>它产生以下结果：<code>[1] FALSE  TRUE FALSE  TRUE</code></td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>检查是否第一向量的每个元素不等于第二向量的相应元素。</td>
+<td><code>v &lt;- c(2,5.5,6,9) t &lt;- c(8,2.5,14,9) print(v!=t)</code>它产生以下结果：<code>[1]  TRUE  TRUE  TRUE FALSE</code></td>
+</tr>
+<tr class="odd">
+<td>&amp;</td>
+<td>这就是所谓的元素逻辑AND运算符。它结合与第二向量的相应元素的第一向量的每个元素，如果这两个元件都为TRUE则给出一个TRUE。</td>
+<td><code>v &lt;- c(3,1,TRUE,2+3i) t &lt;- c(4,1,FALSE,2+3i) print(v&amp;t)</code>它产生以下结果：<code>[1]  TRUE  TRUE FALSE  TRUE</code></td>
+</tr>
+<tr class="even">
+<td>|</td>
+<td>这就是所谓的逐元素逻辑或运算符。它结合与第二向量的相应元素的第一向量的每个元素，如果使用这些元素之一为TRUE则给出一个TRUE。</td>
+<td><code>v &lt;- c(3,0,TRUE,2+2i) t &lt;- c(4,0,FALSE,2+3i) print(v|t)</code>它产生以下结果：<code>[1]  TRUE FALSE  TRUE  TRUE</code></td>
+</tr>
+<tr class="odd">
+<td>!</td>
+<td>这就是所谓的逻辑非运算符。取向量的每个元素，并给出了相反逻辑值。</td>
+<td><code>v &lt;- c(3,0,TRUE,2+2i) print(!v)</code>它产生以下结果：<code>[1] FALSE  TRUE FALSE FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<p>而对于赋值运算符，R语言除了提供类似与其他编程语言<code>=</code>等于号赋值外，还提供了<code>-&gt;</code>以及<code>&lt;-</code>的赋值符号。这几乎和<code>=</code>号的赋值功能是相同的，大家可以根据自己的喜好进行选择。</p>
+<p>最后R语言还有一些高级的赋值运算符比如<code>%in%</code>用来识别一个元素是否属于（在）一个向量。<code>:</code>可以用来创建一组序列,如<code>1:10</code>创建1到10，十个数。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="导入社科数据.html#cb13-1" aria-hidden="true"></a><span class="dv">1</span><span class="op">:</span><span class="dv">10</span><span class="co">#等效于seq()</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="导入社科数据.html#cb15-1" aria-hidden="true"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 
+</div>
 </div>
             </section>
 
